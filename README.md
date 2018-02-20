@@ -5,5 +5,5 @@ Ever tried to summarise the User access to the S3 buckets in your AWS Account? H
 Python 2.7
 
 ## Dependencies
-boto3
+boto3,
 json
