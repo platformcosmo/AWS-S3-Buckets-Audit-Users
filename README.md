@@ -17,9 +17,11 @@ aws_secret_access_key = SHHH************************************
 
 
 ## Code
-Python 2.7
+Python 3.7 tested
 
 ## Dependencies
+* pipenv if you want to run this in a pipenv shell
+
 * boto3
 * json
 

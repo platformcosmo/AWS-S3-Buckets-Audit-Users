@@ -44,10 +44,10 @@ s3 = boto3.resource('s3')
 s3client = boto3.client('s3')
 
 list_of_buckets = s3client.list_buckets()
-print color.CYAN + color.BOLD + '----------------------------------------------------'
-print 'No. of S3 Buckets: {}'.format(len(list_of_buckets["Buckets"]))
-print 'List given below:'
-print '----------------------------------------------------' + color.END
+print(color.CYAN + color.BOLD + '----------------------------------------------------')
+print('No. of S3 Buckets: {}'.format(len(list_of_buckets["Buckets"])))
+print('List given below:')
+print('----------------------------------------------------' + color.END)
 for bucket in list_of_buckets["Buckets"]:
     # NOTE: LISTING OF FILES IN THE BUCKETS HAS BEEN COMMENTED OUT AS IT TAKES A LONG TIME IF YOU HAVE LARGE NUMBER OF FILES IN BUCKETS
     # Create a paginator to pull 1000 objects at a time
@@ -63,7 +63,7 @@ for bucket in list_of_buckets["Buckets"]:
     #    print 'EMPTY BUCKET'
     #    pass
     # Final Result
-    print color.CYAN + 'Bucket Name: {}'.format(bucket['Name']) + color.END
+    print(color.CYAN + 'Bucket Name: {}'.format(bucket['Name']) + color.END)
 
 
 # Enumerate all the roles
@@ -75,8 +75,8 @@ for role in Role_list:
 # Enumerate all the users and their policies and groups
 for key in users['Users']:
     user_name = key['UserName']
-    print color.CYAN + '=' * 112 + color.END
-    print color.BOLD + color.RED + 'UserName: {}'.format(user_name) + color.END
+    print(color.CYAN + '=' * 112 + color.END)
+    print(color.BOLD + color.RED + 'UserName: {}'.format(user_name) + color.END)
     Inline_user_policies = iam.list_user_policies(UserName=user_name)
     Managed_user_policies = iam.list_attached_user_policies(UserName=user_name)
     List_of_Groups = iam.list_groups_for_user(UserName=key['UserName'])
@@ -128,25 +128,25 @@ for key in users['Users']:
                     for s3bucket in resource_json:
                         if 's3' in s3bucket:
                             if flag == '0':
-                                print color.YELLOW + '\tUser Inline Policy: {}'.format(inline_policy_name) + color.END
+                                print(color.YELLOW + '\tUser Inline Policy: {}'.format(inline_policy_name) + color.END)
                                 flag = '1'
-                            print color.BLUE + '\t\tS3 Bucket: {}'.format(s3bucket) + color.END
+                            print(color.BLUE + '\t\tS3 Bucket: {}'.format(s3bucket) + color.END)
                             if type(action_json) is list:
                                 for action_print in action_json:
-                                    print color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END
+                                    print(color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END)
                             else:
-                                print color.PURPLE + '\t\t\tAction: {}'.format(action_json) + color.END
+                                print(color.PURPLE + '\t\t\tAction: {}'.format(action_json) + color.END)
                 else:
                     if 's3' in resource_json:
                         if flag == '0':
-                            print color.YELLOW + '\tUser Inline Policy: {}'.format(inline_policy_name) + color.END
+                            print(color.YELLOW + '\tUser Inline Policy: {}'.format(inline_policy_name) + color.END)
                             flag = '1'
-                        print color.BLUE + '\t\tS3 Bucket: {}'.format(resource_json) + color.END
+                        print(color.BLUE + '\t\tS3 Bucket: {}'.format(resource_json) + color.END)
                         if type(action_json) is list:
                             for action_print in action_json:
-                                print color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END
+                                print(color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END)
                         else:
-                            print color.PURPLE + '\t\t\tAction: {}'.format(action_json) + color.END
+                            print(color.PURPLE + '\t\t\tAction: {}'.format(action_json) + color.END)
 
     # Read all the Managed Policies of every user
     for managed_policy in Managed_user_policies['AttachedPolicies']:
@@ -184,21 +184,21 @@ for key in users['Users']:
                                         for action_print in policy_json['Action']:
                                             if ('s3' in action_print) or ('*' == action_print):
                                                 if flag == '0':
-                                                    print color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END
+                                                    print(color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END)
                                                     flag = '1'
                                                 if flag2 == '0':
-                                                    print color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                    print(color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                     flag2 = '1'
-                                                print color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END
+                                                print(color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END)
                                     else:
                                         if ('s3' in policy_json['Action']) or ('*' == policy_json['Action']):
                                             if flag == '0':
-                                                print color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END
+                                                print(color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END)
                                                 flag = '1'
                                             if flag2 == '0':
-                                                print color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                print(color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                 flag2 = '1'
-                                            print color.PURPLE + '\t\t\tAction: {}'.format(policy_json['Action']) + color.END
+                                            print(color.PURPLE + '\t\t\tAction: {}'.format(policy_json['Action']) + color.END)
 
                                 except KeyError:
                                     pass
@@ -212,22 +212,22 @@ for key in users['Users']:
                                     for action_print in policy_json['Action']:
                                         if ('s3' in action_print) or ('*' == action_print):
                                             if flag == '0':
-                                                print color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END
+                                                print(color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END)
                                                 flag = '1'
                                             if flag2 == '0':
-                                                print color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                print(color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                 flag2 = '1'
-                                            print color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END
+                                            print(color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END)
                                 else:
                                     action_print = policy_json['Action']
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag == '0':
-                                            print color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END
+                                            print(color.YELLOW + '\tUser Managed Policy: {}'.format(managed_policy['PolicyName']) + color.END)
                                             flag = '1'
                                         if flag2 == '0':
-                                            print color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END
+                                            print(color.BLUE + '\t\tS3 Bucket: {}'.format(resource) + color.END)
                                             flag2 = '1'
-                                        print color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END
+                                        print(color.PURPLE + '\t\t\tAction: {}'.format(action_print) + color.END)
 
                             except KeyError:
                                 pass
@@ -265,28 +265,28 @@ for key in users['Users']:
                                         for action_print in statement['Action']:
                                             if ('s3' in action_print) or ('*' == action_print):
                                                 if flag3 == '0':
-                                                    print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                                    print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                                     flag3 = '1'
                                                 if flag_inline_policy == '0':
-                                                    print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                                    print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                                     flag_inline_policy = '1'
                                                 if flag4 == '0':
-                                                    print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                    print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                     flag4 = '1'
-                                                print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                     else:
                                         action_print = statement['Action']
                                         if ('s3' in action_print) or ('*' == action_print):
                                             if flag3 == '0':
-                                                print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                                print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                                 flag3 = '1'
                                             if flag_inline_policy == '0':
-                                                print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                                print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                                 flag_inline_policy = '1'
                                             if flag4 == '0':
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                 flag4 = '1'
-                                            print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                            print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                         else:
                             resource = statement['Resource']
                             if ('s3' in resource) or ('*' == resource):
@@ -294,28 +294,28 @@ for key in users['Users']:
                                     for action_print in statement['Action']:
                                         if ('s3' in action_print) or ('*' == action_print):
                                             if flag3 == '0':
-                                                print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                                print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                                 flag3 = '1'
                                             if flag_inline_policy == '0':
-                                                print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                                print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                                 flag_inline_policy = '1'
                                             if flag4 == '0':
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                 flag4 = '1'
-                                            print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                            print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                 else:
                                     action_print = statement['Action']
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag3 == '0':
-                                            print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                            print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                             flag3 = '1'
                                         if flag_inline_policy == '0':
-                                            print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                            print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                             flag_inline_policy = '1'
                                         if flag4 == '0':
-                                            print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                            print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                             flag4 = '1'
-                                        print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                        print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
 
                 else:
                     statement = statement_json
@@ -326,28 +326,28 @@ for key in users['Users']:
                                     for action_print in statement['Action']:
                                         if ('s3' in action_print) or ('*' == action_print):
                                             if flag3 == '0':
-                                                print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                                print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                                 flag3 = '1'
                                             if flag_inline_policy == '0':
-                                                print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                                print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                                 flag_inline_policy = '1'
                                             if flag4 == '0':
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                                 flag4 = '1'
-                                            print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                            print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                 else:
                                     action_print = statement['Action']
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag3 == '0':
-                                            print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                            print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                             flag3 = '1'
                                         if flag_inline_policy == '0':
-                                            print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                            print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                             flag_inline_policy = '1'
                                         if flag4 == '0':
-                                            print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                            print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                             flag4 = '1'
-                                        print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                        print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                     else:
                         resource = statement['Resource']
                         if ('s3' in resource) or ('*' == resource):
@@ -355,28 +355,28 @@ for key in users['Users']:
                                 for action_print in statement['Action']:
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag3 == '0':
-                                            print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                            print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                             flag3 = '1'
                                         if flag_inline_policy == '0':
-                                            print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                            print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                             flag_inline_policy = '1'
                                         if flag4 == '0':
-                                            print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                            print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                             flag4 = '1'
-                                        print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                        print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                             else:
                                 action_print = statement['Action']
                                 if ('s3' in action_print) or ('*' == action_print):
                                     if flag3 == '0':
-                                        print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                        print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                         flag3 = '1'
                                     if flag_inline_policy == '0':
-                                        print color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END
+                                        print(color.YELLOW + '\t\tInline Policy: {}'.format(arn) + color.END)
                                         flag_inline_policy = '1'
                                     if flag4 == '0':
-                                        print color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END
+                                        print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(resource) + color.END)
                                         flag4 = '1'
-                                    print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                    print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
 
         # Start the function if a User is a part of a group that has Managed Policies
         if managed_group_policy:
@@ -412,42 +412,42 @@ for key in users['Users']:
                                     for action_print in policy_json['Action']:
                                         if ('s3' in action_print) or ('*' == action_print):
                                             if flag_group == '0':
-                                                print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                                print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                                 flag_group = '1'
                                             if flag_managed_policy == '0':
-                                                print color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END
+                                                print(color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END)
                                                 flag_managed_policy = '1'
 
                                             if flag5 == '0':
                                                 if type(resource) is list:
                                                     for bucket_name in resource:
-                                                        print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                        print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                        print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                        print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                                 else:
                                                     bucket_name = resource
-                                                    print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                    print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                    print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                    print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                                 flag5 = '1'
 
                                 else:
                                     action_print = policy_json['Action']
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag_group == '0':
-                                            print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                            print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                             flag_group = '1'
                                         if flag_managed_policy == '0':
-                                            print color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END
+                                            print(color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END)
                                             flag_managed_policy = '1'
 
                                         if flag5 == '0':
                                             if type(resource) is list:
                                                 for bucket_name in resource:
-                                                    print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                    print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                    print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                    print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                             else:
                                                 bucket_name = resource
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                             flag5 = '1'
 
                         else:
@@ -456,44 +456,44 @@ for key in users['Users']:
                                 for action_print in policy_json['Action']:
                                     if ('s3' in action_print) or ('*' == action_print):
                                         if flag_group == '0':
-                                            print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                            print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                         flag_group = '1'
                                         if flag_managed_policy == '0':
-                                            print color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END
+                                            print(color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END)
                                             flag_managed_policy = '1'
 
                                         if flag5 == '0':
                                             if type(resource) is list:
                                                 for bucket_name in resource:
-                                                    print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                    print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                    print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                    print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                             else:
                                                 bucket_name = resource
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                             flag5 = '1'
 
                             else:
                                 action_print = policy_json['Action']
                                 if ('s3' in action_print) or ('*' == action_print):
                                     if flag_group == '0':
-                                        print color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END
+                                        print(color.DARKCYAN + '\tGroup Name: {}'.format(group_dump['GroupName']) + color.END)
                                         flag_group = '1'
                                     if flag_managed_policy == '0':
-                                        print color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END
+                                        print(color.YELLOW + '\t\tManaged Policy: {}'.format(arn) + color.END)
                                         flag_managed_policy = '1'
 
                                     if flag5 == '0':
                                         if type(resource) is list:
                                             for bucket_name in resource:
-                                                print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                                print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                                print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                                print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                         else:
                                             bucket_name = resource
-                                            print color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END
-                                            print color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END
+                                            print(color.BLUE + '\t\t\tS3 Bucket: {}'.format(bucket_name) + color.END)
+                                            print(color.PURPLE + '\t\t\t\tAction: {}'.format(action_print) + color.END)
                                         flag5 = '1'
 
                     except KeyError:
-                        print KeyError
+                        print(KeyError)
                         pass
